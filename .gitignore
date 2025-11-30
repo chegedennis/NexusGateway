@@ -1,0 +1,24 @@
+# --- SECURITY ---
+.env
+db.sqlite3
+*.pem
+*.key
+
+# --- PYTHON ---
+__pycache__/
+*.py[cod]
+*$py.class
+venv/
+env/
+.venv/
+
+# --- DJANGO ---
+*.log
+local_settings.py
+staticfiles/
+media/
+
+# --- IDE / OS ---
+.idea/
+.vscode/
+.DS_Store

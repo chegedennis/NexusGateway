@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sunrise WiFi</title>
+    <style>
+        /* 1. RESET & LAYOUT */
+        * { box-sizing: border-box; margin: 0; padding: 0; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; }
+        
+        body {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        /* 2. THE CARD */
+        .wifi-card {
+            background: white;
+            padding: 2rem;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            width: 90%;
+            max-width: 380px; /* Narrow width as requested */
+            text-align: center;
+        }
+
+        h3 { color: #333; margin-bottom: 5px; font-size: 1.5rem; }
+        .subtitle { color: #666; font-size: 0.9rem; margin-bottom: 25px; }
+
+        /* 3. CUSTOM PACKAGE SELECTOR (The Buttons) */
+        .package-group {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+        
+        .package-option {
+            flex: 1; /* Make them equal width */
+            position: relative;
+        }
+
+        /* Hide the actual ugly radio circle */
+        .package-option input[type="radio"] {
+            display: none;
+        }
+
+        /* The Box Styling */
+        .package-option label {
+            display: block;
+            border: 2px solid #e0e0e0;
+            border-radius: 10px;
+            padding: 10px 5px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            color: #555;
+        }
+
+        .price { font-size: 0.85rem; color: #888; margin-top: 2px; }
+        .duration { font-weight: bold; font-size: 1rem; }
+
+        /* When Selected (Green Style) */
+        .package-option input[type="radio"]:checked + label {
+            border-color: #4CAF50;
+            background-color: #e8f5e9;
+            color: #2e7d32;
+            box-shadow: 0 4px 10px rgba(76, 175, 80, 0.2);
+        }
+        
+        .package-option input[type="radio"]:checked + label .price {
+            color: #2e7d32;
+            font-weight: 600;
+        }
+
+        /* 4. FORM ELEMENTS */
+        .input-label {
+            display: block;
+            text-align: left;
+            font-size: 0.8rem;
+            font-weight: bold;
+            color: #444;
+            margin-bottom: 5px;
+            margin-left: 2px;
+        }
+
+        input[type="text"] {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #e0e0e0;
+            border-radius: 10px;
+            font-size: 1rem;
+            margin-bottom: 20px;
+            outline: none;
+            transition: border 0.2s;
+        }
+
+        input[type="text"]:focus {
+            border-color: #4CAF50;
+        }
+
+        /* 5. PAY BUTTON */
+        .btn-pay {
+            background-color: #4CAF50;
+            color: white;
+            width: 100%;
+            padding: 14px;
+            border: none;
+            border-radius: 12px;
+            font-size: 1rem;
+            font-weight: bold;
+            cursor: pointer;
+            box-shadow: 0 4px 6px rgba(76, 175, 80, 0.3);
+            transition: transform 0.1s;
+        }
+
+        .btn-pay:active {
+            transform: scale(0.98);
+        }
+
+        .footer-note {
+            margin-top: 20px;
+            font-size: 0.8rem;
+            color: #999;
+            line-height: 1.4;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="wifi-card">
+        <h3>Sunrise WiFi</h3>
+        <p class="subtitle">Fast. Affordable. Instant.</p>
+
+        <form action="/pay" method="POST">
+            {% csrf_token %}
+
+            <div class="input-label">Select Package</div>
+            
+            <div class="package-group">
+                <div class="package-option">
+                    <input type="radio" name="plan" id="p1" value="1hour" checked>
+                    <label for="p1">
+                        <div class="duration">1 Hr</div>
+                        <div class="price">10/=</div>
+                    </label>
+                </div>
+
+                <div class="package-option">
+                    <input type="radio" name="plan" id="p2" value="24hours">
+                    <label for="p2">
+                        <div class="duration">24 Hrs</div>
+                        <div class="price">50/=</div>
+                    </label>
+                </div>
+            </div>
+
+            <div class="input-label">Enter M-Pesa Number</div>
+            <input type="text" name="phone" placeholder="07XX XXX XXX" required>
+            
+            <button type="submit" class="btn-pay">
+                Pay Now
+            </button>
+        </form>
+
+        <p class="footer-note">
+            Internet will connect automatically<br>after payment.
+        </p>
+    </div>
+
+</body>
+</html>
